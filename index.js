@@ -75,7 +75,7 @@ export async function deepgramTranscribeFile(
 }
 
 // OpenAI Text-to-Speech
-export async function deepgramTextToSpeech(
+export async function openaiTextToSpeech(
   text,
   voice = "alloy",
   model = "tts-1"
