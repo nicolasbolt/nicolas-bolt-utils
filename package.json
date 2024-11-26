@@ -1,0 +1,22 @@
+{
+  "name": "nicolas-bolt-utils",
+  "version": "1.0.0",
+  "description": "Javascript utility functions that I use across my projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolasbolt/nicolas-bolt-utils.git"
+  },
+  "author": "Nicolas Bolt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicolasbolt/nicolas-bolt-utils/issues"
+  },
+  "homepage": "https://github.com/nicolasbolt/nicolas-bolt-utils#readme",
+  "dependencies": {
+    "mongoose": "^8.8.3"
+  }
+}
