@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import OpenAI from "openai";
+import deepgram from "deepgram";
 
 // String and Date manipulation functions
 export function slugify(val) {
@@ -41,6 +43,53 @@ export async function connectDB() {
     console.log("MongoDB connected...");
   } catch (error) {
     console.error("Error connecting to db in connectDB");
+    console.error(error);
+  }
+}
+
+// API functions
+
+// Create OpenAI Client
+const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+// Deepgram Transcribe File
+export async function deepgramTranscribeFile(
+  audio,
+  language,
+  model = "nova-2"
+) {
+  try {
+    const response = await deepgram.listen.prerecorded.transcribeFile(audio, {
+      language: language,
+      model: model,
+    });
+
+    const transcript =
+      response.result?.results.channels[0].alternatives[0].transcript;
+
+    return transcript;
+  } catch (error) {
+    console.error("Error in deepgramTranscribeFile");
+    console.error(error);
+  }
+}
+
+// OpenAI Text-to-Speech
+export async function deepgramTextToSpeech(
+  text,
+  voice = "alloy",
+  model = "tts-1"
+) {
+  try {
+    const response = await client.audio.speech.create({
+      model,
+      voice,
+      input: text,
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Error in deepgramTextToSpeech");
     console.error(error);
   }
 }

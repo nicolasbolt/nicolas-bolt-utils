@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/nicolasbolt/nicolas-bolt-utils#readme",
   "dependencies": {
+    "@deepgram/sdk": "^3.9.0",
     "mongoose": "^8.8.3"
   }
 }
