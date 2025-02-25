@@ -27,6 +27,7 @@ Date and time manipulation functions:
 | `deslugify`       | Converts a URL slug into a string for display                                  |
 | `capitalizeWords` | Capitalizes each word in a string, useful for generating headers on web pages. |
 | `formatDate`      | Converts a Javascript Date into a readable format: MM/DD/YYYY. E.g. 11/26/2024 |
+| `truncateText`    | Truncates text and adds ellipses after reaching the max character number.      |
 
 MongoDB utility functions:
 

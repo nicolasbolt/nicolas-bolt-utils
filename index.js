@@ -23,28 +23,44 @@ export function formatDate(date) {
   return new Date(date).toLocaleDateString(undefined, options);
 }
 
+// Truncate Text
+export function truncateText(text, maxLength) {
+  return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+}
+
+// Get Initials from Name
+export function getInitials(name) {
+  return name
+    .split(" ")
+    .map((n) => n[0]?.toUpperCase())
+    .join("");
+}
+
 // MongoDB functions
 
-let connected = false;
+// Connect to MongoDB
+const MONGODB_URI = process.env.MONGODB_URI || "";
 
-export async function connectDB() {
-  mongoose.set("strictQuery", true);
+if (!MONGODB_URI) {
+  throw new Error("Please define the MONGODB_URI environment variable");
+}
 
-  // If the database is already connected, don't connect again
-  if (connected) {
-    console.log("MongoDB is already connected...");
-    return;
+let cached = global.mongoose || { conn: null, promise: null };
+
+export async function connectToDatabase() {
+  if (cached.conn) return cached.conn;
+
+  if (!cached.promise) {
+    cached.promise = mongoose
+      .connect(MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      .then((mongoose) => mongoose);
   }
 
-  // Connect to MongoDB
-  try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    connected = true;
-    console.log("MongoDB connected...");
-  } catch (error) {
-    console.error("Error connecting to db in connectDB");
-    console.error(error);
-  }
+  cached.conn = await cached.promise;
+  return cached.conn;
 }
 
 // API functions
